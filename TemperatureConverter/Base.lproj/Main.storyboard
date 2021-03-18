@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
@@ -14,32 +14,46 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TemperatureConverter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="jdb-Xd-j4l">
-                                <rect key="frame" x="20" y="385" width="163" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="jdb-Xd-j4l">
+                                <rect key="frame" x="30" y="356" width="115" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="115" id="GoT-Xi-Q4Y"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <connections>
                                     <action selector="temperatureInputChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="BMR-gd-EWW"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0c8-ff-OoA">
-                                <rect key="frame" x="230" y="385" width="164" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <pickerView contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="uJu-ML-C2N">
+                                <rect key="frame" x="0.0" y="110" width="428" height="216"/>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0c8-ff-OoA">
+                                <rect key="frame" x="293" y="356" width="115" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="115" id="da2-da-Djn"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uJu-ML-C2N">
-                                <rect key="frame" x="0.0" y="110" width="414" height="253"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </pickerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="uJu-ML-C2N" firstAttribute="leading" relation="lessThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="7Yk-Md-SyC"/>
+                            <constraint firstItem="uJu-ML-C2N" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="66" id="NEx-xs-ern"/>
+                            <constraint firstItem="uJu-ML-C2N" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Q8i-lC-y2s"/>
+                            <constraint firstItem="0c8-ff-OoA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jdb-Xd-j4l" secondAttribute="trailing" constant="8" symbolic="YES" id="bgK-mm-V3e"/>
+                            <constraint firstItem="jdb-Xd-j4l" firstAttribute="top" secondItem="uJu-ML-C2N" secondAttribute="bottom" constant="30" id="fwI-tW-twT"/>
+                            <constraint firstItem="jdb-Xd-j4l" firstAttribute="top" secondItem="0c8-ff-OoA" secondAttribute="top" id="iV3-54-9Zq"/>
+                            <constraint firstItem="0c8-ff-OoA" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="n65-TL-rbP"/>
+                            <constraint firstItem="jdb-Xd-j4l" firstAttribute="bottom" secondItem="0c8-ff-OoA" secondAttribute="bottom" id="pLi-Qt-WPM"/>
+                            <constraint firstItem="jdb-Xd-j4l" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="tmU-kT-rcM"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="conversionPicker" destination="uJu-ML-C2N" id="1dH-1n-P7l"/>
