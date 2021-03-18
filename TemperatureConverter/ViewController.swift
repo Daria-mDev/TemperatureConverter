@@ -23,43 +23,34 @@ enum Temperature: CaseIterable {
         }
     }
     
-    
     func convertTo(temperatureScale scale: Temperature, value inputValue: Double) -> Double {
         var result = inputValue
         
         switch self {
-        case .celsius:
-            if scale == .fahrenheit {
-                result = inputValue * 1.8 + 32
-            }
-            else if scale == .kelvin {
-                result = inputValue + 273.15
-            }
-        case .fahrenheit:
-            if scale == .celsius {
-                result = (inputValue - 32) / 1.8
-            }
-            else if scale == .kelvin {
-                result = (inputValue + 459.67) / 1.8
-            }
-        case .kelvin:
-            if scale == .celsius {
-                result = inputValue - 273.15
-            }
-            else if scale == .fahrenheit {
-                result = inputValue * 1.8 - 459.67
-            }
+        case .celsius where scale == .fahrenheit:
+            result = inputValue * 1.8 + 32
+        case .celsius where scale == .kelvin:
+            result = inputValue + 273.15
+        case .fahrenheit where scale == .celsius:
+            result = (inputValue - 32) / 1.8
+        case .fahrenheit where scale == .kelvin:
+            result = (inputValue + 459.67) / 1.8
+        case .kelvin where scale == .celsius:
+            result = inputValue - 273.15
+        case .kelvin where scale == .fahrenheit:
+            result = inputValue * 1.8 - 459.67
+        default: result = inputValue
         }
         return result
     }
+    
 }
 
-
-class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class ViewController: UIViewController {
     @IBOutlet weak var conversionPicker: UIPickerView!
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var outputLabel: UILabel!
-   
+    
     let temperatureScales = Temperature.allCases
     
     
@@ -67,24 +58,6 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         super.viewDidLoad()
         conversionPicker.delegate = self
         conversionPicker.dataSource = self
-    }
-
-
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        temperatureScales.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return temperatureScales[row].description()
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component:Int) {
-        setConvertionValue()
     }
     
     @IBAction func temperatureInputChanged(_ sender: Any) {
@@ -99,19 +72,39 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         let fromTemperatureScale = temperatureScales[fromTemperatureIdx]
         let toTemperatureScale = temperatureScales[toTemperatureIdx]
         
-        if let inputValue = inputTextField.text {
-            if !inputValue.isEmpty {
-                guard let temperatureValue = Double(inputValue) ?? nil
-                else {
-                    return
-                }
-                let outputTemperature = fromTemperatureScale.convertTo(temperatureScale: toTemperatureScale, value: temperatureValue)
-                outputLabel.text = String(format: "%.2f", (outputTemperature))
-            }
-            else {
-                outputLabel.text = ""
-                }
-            }
+        guard let inputValue = inputTextField.text, !inputValue.isEmpty, let temperatureValue = Double(inputValue) else {
+            outputLabel.text = ""
+            return
+        }
+        
+        let outputTemperature = fromTemperatureScale.convertTo(temperatureScale: toTemperatureScale, value: temperatureValue)
+        outputLabel.text = String(format: "%.2f", (outputTemperature))
+    }
+    
+}
+extension ViewController: UIPickerViewDataSource {
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        temperatureScales.count
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
     }
 }
+
+extension ViewController: UIPickerViewDelegate {
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return temperatureScales[row].description()
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component:Int) {
+        setConvertionValue()
+    }
+}
+
+
+
+
 
